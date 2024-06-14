@@ -25,7 +25,7 @@ WPconnection();
 
 // Endpoint to handle incoming POST requests
 app.post('/message', async (req, res) => {
-    const { email, otp } = req.body;
+    const { phoneNumber, otp } = req.body;
 
     try {
         if (!sock) {
@@ -33,7 +33,7 @@ app.post('/message', async (req, res) => {
         }
 
         // Send OTP via WhatsApp
-        await sock.sendText(email, `Your OTP (One-time-password) is ${otp}. Please do not share this code with anyone.`);
+        await sock.sendText(phoneNumber, `Your OTP (One-time-password) is ${otp}. Please do not share this code with anyone.`);
         res.send('Message received and OTP sent via WhatsApp');
     } catch (error) {
         console.error('Error handling message:', error);
