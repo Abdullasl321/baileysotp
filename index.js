@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { BaileysClass } = require('@bot-wa/bot-wa-baileys');
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
