@@ -31,11 +31,7 @@ WPconnection();
 
 // Endpoint to handle incoming POST requests
 app.post('/message', async (req, res) => {
-<<<<<<< HEAD
-    const { phoneNumber, otp } = req.body;
-=======
     const { phoneNumber, otp, Smessage } = req.body;
->>>>>>> 66453ea19ee150c158f2801d9ea0f0ee0e7ef694
 
     try {
         if (!sock) {
@@ -43,11 +39,7 @@ app.post('/message', async (req, res) => {
         }
 
         // Send OTP via WhatsApp
-<<<<<<< HEAD
-        await sock.sendText(phoneNumber, `Your OTP (One-time-password) is ${otp}. Please do not share this code with anyone.`);
-=======
         await sock.sendText(phoneNumber, Smessage);
->>>>>>> 66453ea19ee150c158f2801d9ea0f0ee0e7ef694
         res.send('Message received and OTP sent via WhatsApp');
     } catch (error) {
         console.error('Error handling message:', error);
