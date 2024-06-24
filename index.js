@@ -2,14 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { BaileysClass } = require('@bot-wa/bot-wa-baileys');
 const path = require('path');
+const axios = require('axios'); // Import axios
 
 const app = express();
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 
 let sock; // Declare sock at the module level
 
@@ -31,11 +31,7 @@ WPconnection();
 
 // Endpoint to handle incoming POST requests
 app.post('/message', async (req, res) => {
-<<<<<<< HEAD
-    const { phoneNumber, otp } = req.body;
-=======
     const { phoneNumber, otp, Smessage } = req.body;
->>>>>>> 66453ea19ee150c158f2801d9ea0f0ee0e7ef694
 
     try {
         if (!sock) {
@@ -43,11 +39,7 @@ app.post('/message', async (req, res) => {
         }
 
         // Send OTP via WhatsApp
-<<<<<<< HEAD
-        await sock.sendText(phoneNumber, `Your OTP (One-time-password) is ${otp}. Please do not share this code with anyone.`);
-=======
         await sock.sendText(phoneNumber, Smessage);
->>>>>>> 66453ea19ee150c158f2801d9ea0f0ee0e7ef694
         res.send('Message received and OTP sent via WhatsApp');
     } catch (error) {
         console.error('Error handling message:', error);
@@ -58,4 +50,15 @@ app.post('/message', async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+
+    // Ping server every 10 seconds to keep it alive
+    setInterval(() => {
+        axios.get(`http://localhost:${PORT}`)
+            .then(response => {
+                console.log('Ping successful:', response.status);
+            })
+            .catch(error => {
+                console.error('Ping failed:', error);
+            });
+    }, 10000); // 10000 milliseconds = 10 seconds
 });
